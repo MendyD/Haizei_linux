@@ -35,5 +35,25 @@ int socket_create(int port){
 }
 
 int socket_connect(int port, char *host){
+    int client_listen;
 
+    struct sockaddr_in client_addr;
+
+    client_addr.sin_family = AF_INET;
+    client_addr.sin_port = htons(port);
+    client_addr.sin_addr.s_addr = inet_addr(host);
+    
+    if((client_listen = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+        perror("client_listen");
+        close(client_listen);
+        return -1;
+    }
+
+    if(connect(client_listen, (struct sockaddr *)(&client_addr), sizeof(client_addr)) < 0){
+        perror("connect");
+        close(client_listen);
+        return -1;
+    }
+        
+    return client_listen;
 }
