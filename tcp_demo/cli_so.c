@@ -22,8 +22,8 @@ int main(int argc, char *argv[]){
     struct sockaddr_in client_sock;
 
     client_sock.sin_family = AF_INET;
-    client_sock.sin_port = htons(8828);
-    client_sock.sin_addr.s_addr = inet_addr("192.168.2.29");
+    client_sock.sin_port = htons(port);
+    client_sock.sin_addr.s_addr = inet_addr(ip_addr);
 
     int con = connect(sockfd_client, (struct sockaddr*)(&client_sock), sizeof(struct sockaddr));
     if(con == -1){
