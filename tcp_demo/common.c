@@ -57,3 +57,43 @@ int socket_connect(int port, char *host){
         
     return client_listen;
 }
+
+int get_conf_value(char *pathname, char * key_name, char *value){
+    
+    FILE *fd = NULL;
+    char *line = NULL;
+    char *substr = NULL;
+    ssize_t read;
+    size_t len = 0;
+    
+
+    fd = fopen(pathname, "r");
+    if(fd == NULL){
+        printf("Error in Open!\n");
+        exit(1);
+    }
+
+    while((read = getline(&line, &len, fd)) != 1){
+        printf("%s", line);
+        substr = strstr(line, key_name);
+        if(substr == NULL){
+            continue;
+        } else {
+            int tmp = strlen(key_name);
+            if(line[tmp] == '='){
+
+                strncpy(value, &line[tmp + 1], (int)read - tmp - 1);
+                tmp = strlen(value);
+                *(value + tmp - 1) = '\0';
+                break;
+            } else {
+                printf("Next\n");    
+                continue;
+            }
+        }
+    }
+    
+
+    return 0;
+
+}
