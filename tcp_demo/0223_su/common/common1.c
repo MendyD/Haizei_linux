@@ -76,7 +76,7 @@ int get_conf_value(char *pathname, char* key_name, char *value) {
     }
     
     while ((read = getline(&line, &len, fd)) != 1) {
-        DBG("%s", line);
+        printf("%s", line);
         fflush(stdout);
         substr = strstr(line, key_name);
         if (substr == NULL) {
@@ -84,8 +84,8 @@ int get_conf_value(char *pathname, char* key_name, char *value) {
         } else {
             tmp = strlen(key_name);
             if (line[tmp] == '=') {
-                DBG("tmp = %d\n", tmp);
-                DBG("read = %d\n", read);
+                printf("tmp = %d\n", tmp);
+                printf("read = %d\n", read);
 
                 strncpy(value, &line[tmp + 1], (int)read - tmp - 1);
                 tmp = strlen(value);
