@@ -84,9 +84,6 @@ int get_conf_value(char *pathname, char* key_name, char *value) {
         } else {
             tmp = strlen(key_name);
             if (line[tmp] == '=') {
-                printf("tmp = %d\n", tmp);
-                printf("read = %d\n", read);
-
                 strncpy(value, &line[tmp + 1], (int)read - tmp - 1);
                 tmp = strlen(value);
                 *(value + tmp - 1) = '\0';

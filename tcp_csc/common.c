@@ -58,12 +58,12 @@ int socket_connect(int port, char *host){
     return client_listen;
 }
 
-int get_conf_value(char *pathname, char * key_name, char *value){
+int get_conf_value(char *pathname, char* key_name, char *value){
     
     FILE *fd = NULL;
     char *line = NULL;
     char *substr = NULL;
-    ssize_t read;
+    ssize_t read = 0;
     size_t len = 0;
     
 
@@ -75,6 +75,7 @@ int get_conf_value(char *pathname, char * key_name, char *value){
 
     while((read = getline(&line, &len, fd)) != 1){
         printf("%s", line);
+        fflush(stdout);
         substr = strstr(line, key_name);
         if(substr == NULL){
             continue;
@@ -92,8 +93,4 @@ int get_conf_value(char *pathname, char * key_name, char *value){
             }
         }
     }
-    
-
-    return 0;
-
 }
