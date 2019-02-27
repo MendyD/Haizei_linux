@@ -36,8 +36,6 @@ int main(int argc, char *argv[]){
             continue;
         }
         //0为子进程
-        //父进程里pid 返回子进程pid
-        //子进程里返回0
         if(pid == 0) {
             close(listen_socketfd);
             recv(sock_fd, name, 20, 0);
