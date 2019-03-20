@@ -35,12 +35,13 @@ int main(){
     
     int *sum = (int *)malloc(ins *sizeof(int));
 
-    memset(sum, 0, sizeof(sum));//置零
+    memset(sum, 0, ins * sizeof(int));//置零
 
 
-    DBG("start = %d.%d.%d.%d\n", start[0], start[1], start[2], start[3]);
+    printf("start = %d.%d.%d.%d\n", start[0], start[1], start[2], start[3]);
+    //DBG("start = %d.%d.%d.%d\n", start[0], start[1], start[2], start[3]);
 
-    LinkedList *linkedlist = (LinkedList *) malloc(ins * (sizeof(LinkedList)));
+    LinkedList *linkedlist = (LinkedList *) malloc(ins * sizeof(LinkedList));
     
     struct sockaddr_in initaddr;
     initaddr.sin_family = AF_INET;
@@ -76,12 +77,13 @@ int main(){
     fflush(stdout);
     
     struct HEART heartarg;
-    heartarg.head = linkedlist;
+    heartarg.head = linkedlist[0];
     heartarg.ins = ins;
     heartarg.sum = sum;
     
     if(pthread_create(&heart_t, NULL, heartbeat, (void *)&heartarg) == -1){
-        DBG("error in pthread_create for heartbeat");
+        printf("error in pthread_create for heartbeat");
+        //DBG("error in pthread_create for heartbeat");
     }
 
 
@@ -92,7 +94,8 @@ int main(){
         print_para[i].index = i;
         print_para[i].head = linkedlist[i];
         if(pthread_create(&t[i], NULL, print, (void *)&print_para[i]) == -1) {
-            DBG("error in pthread_create!\n");
+            printf("error in pthread_create!\n");
+            //DBG("error in pthread_create!\n");
             return -1;
         }
     }
@@ -100,7 +103,10 @@ int main(){
 
     int server_listen;
     if((server_listen = socket_create(port_M)) < 0){
-        DBG("%s\n", strerror(errno));
+        printf("%s\n", strerror(errno));
+        //DBG("%s\n", strerror(errno));
+        close(server_listen);
+        return 1;
     }
 
     while(1){
@@ -108,17 +114,20 @@ int main(){
         struct sockaddr_in client_addr;
         socklen_t len = sizeof(client_addr);
         if((fd = accept(server_listen, (struct sockaddr *)&client_addr, &len) < 0)){
-            DBG("%s\n", strerror(errno));
+            //DBG("%s\n", strerror(errno));
+            printf("%s\n", strerror(errno));
             close(fd);
             continue;
         }
-        struct Node *p;
+        printf("--> %s\n", inet_ntoa(client_addr.sin_addr));
+        Node *p;
         p = (Node *)malloc(sizeof(Node));
         p->client_addr = client_addr;
         p->next = NULL;
-        int sub = find_min(sum, ins);
-        insert(linkedlist[sub], p);
-        
+        if(check(linkedlist, client_addr, ins) != -1){
+            int sub = find_min(sum, ins);
+            insert(linkedlist[sub], p);
+        }    
     }
 
     //线程等待

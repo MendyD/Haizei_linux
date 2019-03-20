@@ -20,11 +20,15 @@ struct PRINT{
 
 /*心跳接头体*/
 struct HEART{
-    LinkedList head;//linst0
+    LinkedList *head;//linst0
     int ins;//并发度
     int *sum;
 };
 
+struct CHECK{
+    LinkedList *head;//linst0
+    int ins;//并发度
+};
 
 int transip(char* sip, char* ip){
     if(sip == NULL){
@@ -34,27 +38,27 @@ int transip(char* sip, char* ip){
     int count = 0;
     while(1){
         int index = 0;
-        while(*sip != '\0' && *sip != '.' && count < 4)
-        temp[index++] = *ip;
-        sip++;
+        while(*sip != '\0' && *sip != '.' && count < 4){
+            temp[index++] = *sip;
+            sip++;
+        }
+        if(index == 4) return -1;
+        temp[index] = '\0';
+        ip[count] = atoi(temp);
+        printf("ip[%d] = %d\n", count, ip[count]);
+        count++;
+        if(*sip == '\0'){
+            if(count == 4) return 0;
+        } else {
+            sip++;
+        }
+        printf("\n");
+        return 0;
     }
-    if(index == 4) return -1;
-    temp[index] = '\0';
-    ip[count] = inet_atoi(temp);
-    count++;
-    if(*sip == '\0'){
-        if(count == 4) return 0;
-    } else {
-        sip++;
-    }
-
 }
 
 int insert(LinkedList head, Node *node){
     Node *p;
-    if(head == NULL){
-        return head;
-    }
     p = head;
     while(p->next != NULL){
         p = p->next;
@@ -66,7 +70,7 @@ int insert(LinkedList head, Node *node){
 int find_min(int *sum, int ins){
     int ans = 0;
     for(int i = 0; i < ins; i++){
-        if(*(ans + i) < *(sum + ans)){
+        if(*(sum + i) < *(sum + ans)){
             ans = i;
         }
     }
@@ -77,8 +81,10 @@ int find_min(int *sum, int ins){
 void *print(void *arg){
     struct PRINT *print_para = (struct PRINT*)arg;
     int index = print_para->index;
+    printf("index = %d, %d\n", index, print_para->index);
     char filename[50] = {0};
     sprintf(filename, "./%d.log", index);
+    int temp = 0;
     while(1) {
         FILE *file  = fopen(filename, "w");
         Node *p = print_para->head;
@@ -90,19 +96,21 @@ void *print(void *arg){
         fclose(filename);
         sleep(1);
     }
-    return ;
+    return NULL;
 }
 
 int connect_sock(struct sockaddr_in addr){
     int sockfd;
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
         perror("socket");
-        DBG("%s\n", strerror(errno));
+        printf("%s\n", strerror(errno));
+        //DBG("%s\n", strerror(errno));
         return -1;
     }
 
     if(connect(sockfd, (struct sockaddr*)&addr, sizeof(addr)) < 0){
-        DBG("%s\n" , strerror(errno));
+        printf("%s\n" , strerror(errno));
+        //DBG("%s\n" , strerror(errno));
         close(sockfd);
         return -1;
     }
@@ -112,20 +120,19 @@ int connect_sock(struct sockaddr_in addr){
 }
 
 int check(LinkedList *head, struct sockaddr_in addr,int ins){
-
     for(int i = 0; i < ins; i++){
         Node *p;
         p = head[i];
         while(p->next != NULL){
-            if(addr.sin_addr == p->next->client_addr.sin_addr){
-                DBG("%s *** in linst***\n", inet_ntoa(p->next->client_addr.sin_addr));
+            if(addr.sin_addr.s_addr == p->next->client_addr.sin_addr.s_addr){
+                //DBG("%s *** in linst***\n", inet_ntoa(p->next->client_addr.sin_addr));
+                printf("%s *** in linst***\n", inet_ntoa(p->next->client_addr.sin_addr));
                 return -1;
             }
             p = p->next;
         }
     }
     return 0;
-    
 }
 
 
@@ -134,9 +141,8 @@ void heartbeat(void *arg){
     struct HEART *heart;
     heart = (struct HEART *)arg;
     while(1){
-
         for(int i = 0; i < heart->ins; i++){
-            Node **p, *q;
+            Node *p, *q;
             p = heart->head[i];
             while(p != NULL && p->next != NULL){
                 //char ip[20] = {0};
@@ -148,9 +154,10 @@ void heartbeat(void *arg){
                     free(q);
                     heart->sum[i]--; 
                 } else {
-                    DBG("%s : %d online\n", inet_ntoa(p->next->client_addr.sin_addr), ntohs(p->next->client_addr.sin_port));
-                    p = p->next;
+                    printf("%s : %d online\n", inet_ntoa(p->next->client_addr.sin_addr), ntohs(p->next->client_addr.sin_port));
+                    //DBG("%s : %d online\n", inet_ntoa(p->next->client_addr.sin_addr), ntohs(p->next->client_addr.sin_port));
                 }
+                p = p->next;
             }
             sleep(5);
         }

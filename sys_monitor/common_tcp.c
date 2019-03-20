@@ -6,7 +6,7 @@
 	> Created Time: 二  3/ 5 18:49:53 2019
  ************************************************************************/
 
-#include "common.h"
+#include "common_tcp.h"
 #define SAVE_PATH "./log/PiHealthLog.log"
 struct Node{
     char client_addr;
@@ -99,7 +99,7 @@ int get_conf_value(char *pathname, char * key_name, char *value){
     }
 
     while((read = getline(&line, &len, fd)) != 1){
-        //printf("%s", line);
+        printf("%s", line);
         substr = strstr(line, key_name);
         if(substr == NULL){
             continue;
@@ -117,22 +117,8 @@ int get_conf_value(char *pathname, char * key_name, char *value){
             }
         }
     }
-    return 0;
-}
-#ifdef _DEBUG
-#define DBG(fmt, args...) printf(fmt, ##args)
-#else
-#define DBG(fmt, args...)
-#endif
-/*自定义的ntoa*/
-char *my_inet_ntoa(struct in_addr in){
-    int a[4];
-    static char ip[20] = {0};
-    a[3] = in.s_addr >> 24;
-    a[2] = (in.s_addr & 0x00ff0000) >> 16;
-    a[1] = (in.s_addr & 0x0000ff00) >> 8;
-    a[0] = in.s_addr & 0x000000ff;
-    sprintf(ip, "%d.%d.%d.%d", a[0], a[1], a[2], a[3]);
-    return ip;
-}
 
+
+    return 0;
+
+}

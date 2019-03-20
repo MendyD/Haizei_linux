@@ -5,11 +5,7 @@
 	> Course: 
 	> Created Time: 六  2/23 11:05:26 2019
  ************************************************************************/
-#ifdef _DEBUG
-#define DBG(fmt, args...) printf(fmt, ##args)
-#else
-#define DBG(fmt, args...)
-#endif
+
 #ifndef _COMMON_H
 #define _COMMON_H
 #include "head.h"
