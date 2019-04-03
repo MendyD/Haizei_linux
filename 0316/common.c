@@ -97,7 +97,7 @@ int socket_connect(int port, char *host){
     client_listen = socket(AF_INET, SOCK_STREAM, 0);
 
     if(connect(client_listen, (struct sockaddr *)(&client_addr), sizeof(client_addr)) < 0){
-        perror("connect");
+        //perror("connect");
         close(client_listen);
         return -1;
     }
@@ -121,8 +121,9 @@ int udp_socket_connect(int port, char *host, struct sockaddr_in *addr){
 
 }
 
-int get_conf_value(char *pathname, char * key_name, char *value){
-
+int get_conf_value(char *pathname, char *key_name, char *value){
+    
+    memset(value, 0, sizeof(value));
     FILE *fd = NULL;
     char *line = NULL;
     char *substr = NULL;
@@ -137,14 +138,13 @@ int get_conf_value(char *pathname, char * key_name, char *value){
     }
 
     while((read = getline(&line, &len, fd)) != 1){
-        //printf("%s", line);
         substr = strstr(line, key_name);
         if(substr == NULL){
             continue;
         } else {
             int tmp = strlen(key_name);
             if(line[tmp] == '='){
-
+                DBG("find----");
                 strncpy(value, &line[tmp + 1], (int)read - tmp - 1);
                 tmp = strlen(value);
                 *(value + tmp - 1) = '\0';
@@ -155,13 +155,10 @@ int get_conf_value(char *pathname, char * key_name, char *value){
             }
         }
     }
+    DBG("key_name = [%s], value == [%s]\n", key_name, value);
+    fflush(stdout);
     return 0;
 }
-#ifdef _DEBUG
-#define DBG(fmt, args...) printf(fmt, ##args)
-#else
-#define DBG(fmt, args...)
-#endif
 /*自定义的ntoa*/
 char *my_inet_ntoa(struct in_addr in){
     int a[4];
@@ -174,4 +171,41 @@ char *my_inet_ntoa(struct in_addr in){
     return ip;
 }
 
+bool connect_noblock(int port, char *host, long timeout){
+    int sockfd;
+    struct sockaddr_in dest_addr;
+    if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+        perror("socket() error");
+        return -1;
+    }
 
+    memset(&dest_addr, 0, sizeof(dest_addr));
+    dest_addr.sin_family = AF_INET;
+    dest_addr.sin_port = htons(port);
+    dest_addr.sin_addr.s_addr = inet_addr(host);
+    DBG("Connect To %s:%d\n", host, port);
+    int error = -1, len;
+    len = sizeof(int);
+    struct timeval tm;
+    fd_set set;
+    unsigned long ul = 1;
+    ioctl(sockfd, FIONBIO, &ul);
+
+    bool ret = false;
+    if(connect(sockfd, (struct sockaddr*)&dest_addr, sizeof(dest_addr)) < 0){
+        tm.tv_sec = 0;
+        tm.tv_usec = timeout;
+        FD_ZERO(&set);
+        FD_SET(sockfd, &set);
+        if(select(sockfd+1, NULL, &set, NULL, &tm) > 0){
+            getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error,(socklen_t *)(&len));
+            if(error == 0){
+                return true;
+            }
+            else ret = false;
+        }
+        else ret = false;
+    }
+    close(sockfd);
+    return ret;
+}

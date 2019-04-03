@@ -25,4 +25,6 @@ int udp_socket_create(int port, struct sockaddr_in *addr);
 int udp_socket_connect(int port, char *host, struct sockaddr_in *addr);
 
 int write_Pi_log(char *PiHealthLog, const char *format, ...);
+
+bool connect_noblock(int port, char *host, long timeout);
 #endif

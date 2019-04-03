@@ -30,4 +30,11 @@
 #include <sys/ipc.h> 
 #include <sys/shm.h>
 #include <pthread.h>
+#include <sys/ioctl.h>
+#include <sys/epoll.h>
+#include <pwd.h>
+#define HOST "localhost"
+#define USERNAME "root"
+#define PASSWORD "mengadmin"
+#define DATABASE "pihealth"
 #endif
