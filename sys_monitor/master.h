@@ -14,8 +14,8 @@ typedef struct Node {
 }Node, *LinkedList;
 
 struct PRINT{
-    LinkedList head;
-    int index;
+    LinkedList head;//list0;
+    int index;//并发度
 };
 
 /*心跳接头体*/
@@ -102,9 +102,7 @@ void *print(void *arg){
 int connect_sock(struct sockaddr_in addr){
     int sockfd;
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
-        perror("socket");
-        printf("%s\n", strerror(errno));
-        //DBG("%s\n", strerror(errno));
+        DBG("%s\n", strerror(errno));
         return -1;
     }
 
@@ -137,7 +135,7 @@ int check(LinkedList *head, struct sockaddr_in addr,int ins){
 
 
 /*心跳函数*/
-void heartbeat(void *arg){
+void *heartbeat(void *arg){
     struct HEART *heart;
     heart = (struct HEART *)arg;
     while(1){

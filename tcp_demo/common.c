@@ -97,3 +97,37 @@ int get_conf_value(char *pathname, char * key_name, char *value){
     return 0;
 
 }
+
+bool check_connect(struct sockaddr_in addr, long timeout){
+    int sockfd;
+    if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+        DBG("%s\n", strerror(errno));
+        return false;
+    }
+    int error = -1, len;
+    len = sizeof(int);
+    struct timeval tm;
+    fd_set set;
+    unsigned long ul = 1;
+    ioctl(sockfd, FIONBIO, &ul);
+    
+    bool ret = false;
+    if(connect(sockfd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+        tm.tv_sec = 0;
+        tm.tv_usec = timeout;
+        FD_ZERO(&set);
+        FD_SET(sockfd, &set);
+        if(select(sockfd + 1, NULL, &set, NULL, &tm) > 0){
+            getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, (socklen_t *)&len);
+            if(error = 0){
+                ret = true;
+            } else {
+                ret = false;
+            }
+        }
+        else ret = false;
+    } else {
+        ret = false;
+    }
+}
+

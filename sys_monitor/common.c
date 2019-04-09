@@ -83,7 +83,7 @@ int socket_connect(int port, char *host){
     return client_listen;
 }
 
-int get_conf_value(char *pathname, char * key_name, char *value){
+int get_conf_value(char *pathname, char *key_name, char *value){
 
     FILE *fd = NULL;
     char *line = NULL;
