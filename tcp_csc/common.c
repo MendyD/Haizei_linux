@@ -59,7 +59,11 @@ int socket_connect(int port, char *host){
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 int get_conf_value(char *pathname, char * key_name, char *value){
+=======
+int get_conf_value(char *pathname, char* key_name, char *value){
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
 int get_conf_value(char *pathname, char* key_name, char *value){
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
@@ -68,7 +72,11 @@ int get_conf_value(char *pathname, char* key_name, char *value){
     char *line = NULL;
     char *substr = NULL;
 <<<<<<< HEAD
+<<<<<<< HEAD
     ssize_t read;
+=======
+    ssize_t read = 0;
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
     ssize_t read = 0;
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
@@ -83,6 +91,11 @@ int get_conf_value(char *pathname, char* key_name, char *value){
 
     while((read = getline(&line, &len, fd)) != 1){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        printf("%s", line);
+        fflush(stdout);
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
         printf("%s", line);
         fflush(stdout);
@@ -105,10 +118,13 @@ int get_conf_value(char *pathname, char* key_name, char *value){
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 
     return 0;
 
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 }

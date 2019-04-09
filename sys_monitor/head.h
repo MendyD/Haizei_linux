@@ -27,6 +27,10 @@
 #include <time.h>
 #include <stdarg.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#include <stdbool.h>
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
 #include <stdbool.h>
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927

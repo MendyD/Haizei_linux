@@ -9,7 +9,10 @@
 #include "common.h"
 #define MAX_SIZE 200
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 struct sm_msg{
     int flag;
     int sm_time;
@@ -17,6 +20,9 @@ struct sm_msg{
     pthread_cond_t sm_ready;
 };
 
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 
 void *buff_log(){
@@ -27,6 +33,7 @@ void *buff_log(){
     int read_mem, read_disk, read_cpu;
     while(1){
         int i = 0;
+<<<<<<< HEAD
 <<<<<<< HEAD
         popen_mem = popen("./script/./MemLog.sh 24", "r");
         fop_mem = fopen("./log/mem.log", "a+");
@@ -53,6 +60,8 @@ void *buff_log(){
         memset(buff, 0, sizeof(buff));
         
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 
         char arr[7][25] = {0};
         strcpy(arr[0], "script/MemLog.sh 24");
@@ -72,6 +81,9 @@ void *buff_log(){
             fclose(fop_mem);
             memset(buff, 0, sizeof(buff));
         }
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
         fflush(stdout);
         sleep(10);
@@ -94,6 +106,7 @@ int main(){
     printf("%s\n", temp_ip);
     client_port = atoi(temp_port);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     pthread_t log_t;
     int i = 0;
@@ -107,6 +120,8 @@ int main(){
         printf("sleep ----------------\n");
         i++;
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
     
     FILE *fopro_mem;//fopen_readonly
     struct sockaddr_in client_addr;
@@ -137,6 +152,9 @@ int main(){
         }
         i++;
         printf("---------sleep----------\n");
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
         sleep(3);
     }
@@ -144,6 +162,10 @@ int main(){
     //pthread_rwlock_t wr_lock;
    // pthread_rwlock_wrlock(wr_lock);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    pthread_join(&log_t, NULL);
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
     pthread_join(&log_t, NULL);
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927

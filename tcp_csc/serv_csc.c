@@ -6,6 +6,7 @@
 	> Created Time: 六  2/23 10:17:36 2019
  ************************************************************************/
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "common.h" 
 
 typedef struct Node{
@@ -69,11 +70,16 @@ int main(int argc, char *argv[]){
     if(argc != 2){
         printf("Usage: ./serv_show port!\n");
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 #include "common.h"
 int main(int argc, char *argv[]){
     int port, listen_socketfd ,sock_fd, pid;
     if(argc != 2){
         printf("Usage: ./serv_show port1!\n");
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
         exit(1);
     }
@@ -86,6 +92,11 @@ int main(int argc, char *argv[]){
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
 
 
@@ -105,8 +116,11 @@ int main(int argc, char *argv[]){
         }
         //0为子进程
 <<<<<<< HEAD
+<<<<<<< HEAD
         //父进程里pid 返回子进程pid
         //子进程里返回0
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
         if(pid == 0) {
@@ -127,6 +141,10 @@ int main(int argc, char *argv[]){
             close(sock_fd);
             exit(0);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
 
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927

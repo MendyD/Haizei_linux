@@ -125,7 +125,11 @@ int main(){
 
         for(;;){
 <<<<<<< HEAD
+<<<<<<< HEAD
             nfds = epoll_wait(epoll_temp, events,MAX_EVENTS,  -1);
+=======
+            nfds = epoll_wait(epoll_temp, events,MAX_EVENTS, -1);
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
             nfds = epoll_wait(epoll_temp, events,MAX_EVENTS, -1);
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927

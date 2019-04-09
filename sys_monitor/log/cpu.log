@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 inner while i = 0 : CpuLog.sh -> 
 inner while i = 0 : CpuLog.sh -> 
 inner while i = 0 : CpuLog.sh -> 
@@ -7,6 +8,8 @@ inner while i = 0 : CpuLog.sh ->
 inner while i = 0 : CpuLog.sh -> 
 inner while i = 0 : CpuLog.sh -> 
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 inner while i = 0 : CpuLog.sh -> 2019-03-12__15:47:27 0.13 0.14 0.09 1.45 52.07°C note
 
 inner while i = 0 : CpuLog.sh -> 2019-03-12__15:47:31 0.12 0.13 0.09 2.42 51.54°C note
@@ -2180,4 +2183,7 @@ CpuLog.sh ->->->->
 
 2019-03-14__17:13:34 0.00 0.03 0.05 7.81 50.46°C note
 
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927

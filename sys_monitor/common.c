@@ -9,13 +9,19 @@
 #include "common.h"
 #define SAVE_PATH "./log/PiHealthLog.log"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 struct Node{
     char client_addr;
     struct Node *next;
 };
 
 
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 int write_Pi_log(char *PiHealthLog, const char *format, ...){
     FILE * fp = fopen(PiHealthLog, "a+");
@@ -76,11 +82,15 @@ int socket_connect(int port, char *host){
     client_addr.sin_addr.s_addr = inet_addr(host);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     if((client_listen = socket(AF_INET, SOCK_STREAM, 0)) < 0){
         perror("client_listen");
         close(client_listen);
         return -1;
     }
+=======
+    client_listen = socket(AF_INET, SOCK_STREAM, 0);
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
     client_listen = socket(AF_INET, SOCK_STREAM, 0);
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
@@ -95,7 +105,11 @@ int socket_connect(int port, char *host){
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 int get_conf_value(char *pathname, char * key_name, char *value){
+=======
+int get_conf_value(char *pathname, char *key_name, char *value){
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 =======
 int get_conf_value(char *pathname, char *key_name, char *value){
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
@@ -133,12 +147,15 @@ int get_conf_value(char *pathname, char *key_name, char *value){
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
     return 0;
 
 }
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
     return 0;
 }
 #ifdef _DEBUG
@@ -158,4 +175,7 @@ char *my_inet_ntoa(struct in_addr in){
     return ip;
 }
 
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927

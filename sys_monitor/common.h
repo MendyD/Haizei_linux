@@ -6,13 +6,19 @@
 	> Created Time: 六  2/23 11:05:26 2019
  ************************************************************************/
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 #ifdef _DEBUG
 #define DBG(fmt, args...) printf(fmt, ##args)
 #else
 #define DBG(fmt, args...)
 #endif
+<<<<<<< HEAD
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
+=======
 >>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 #ifndef _COMMON_H
 #define _COMMON_H
