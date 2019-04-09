@@ -124,7 +124,11 @@ int main(){
         epoll_ctl(epoll_temp, EPOLL_CTL_ADD, server_listen, &ev);
 
         for(;;){
+<<<<<<< HEAD
             nfds = epoll_wait(epoll_temp, events,MAX_EVENTS,  -1);
+=======
+            nfds = epoll_wait(epoll_temp, events,MAX_EVENTS, -1);
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
             if(nfds == -1){
                 perror("epoll_wait");
             }

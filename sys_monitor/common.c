@@ -8,6 +8,15 @@
 
 #include "common.h"
 #define SAVE_PATH "./log/PiHealthLog.log"
+<<<<<<< HEAD
+=======
+struct Node{
+    char client_addr;
+    struct Node *next;
+};
+
+
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 int write_Pi_log(char *PiHealthLog, const char *format, ...){
     FILE * fp = fopen(PiHealthLog, "a+");
     va_list arg;//这是啥
@@ -66,11 +75,15 @@ int socket_connect(int port, char *host){
     client_addr.sin_port = htons(port);
     client_addr.sin_addr.s_addr = inet_addr(host);
 
+<<<<<<< HEAD
     if((client_listen = socket(AF_INET, SOCK_STREAM, 0)) < 0){
         perror("client_listen");
         close(client_listen);
         return -1;
     }
+=======
+    client_listen = socket(AF_INET, SOCK_STREAM, 0);
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 
     if(connect(client_listen, (struct sockaddr *)(&client_addr), sizeof(client_addr)) < 0){
         perror("connect");
@@ -81,7 +94,11 @@ int socket_connect(int port, char *host){
     return client_listen;
 }
 
+<<<<<<< HEAD
 int get_conf_value(char *pathname, char * key_name, char *value){
+=======
+int get_conf_value(char *pathname, char *key_name, char *value){
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
 
     FILE *fd = NULL;
     char *line = NULL;
@@ -115,8 +132,30 @@ int get_conf_value(char *pathname, char * key_name, char *value){
             }
         }
     }
+<<<<<<< HEAD
 
 
     return 0;
 
 }
+=======
+    return 0;
+}
+#ifdef _DEBUG
+#define DBG(fmt, args...) printf(fmt, ##args)
+#else
+#define DBG(fmt, args...)
+#endif
+/*自定义的ntoa*/
+char *my_inet_ntoa(struct in_addr in){
+    int a[4];
+    static char ip[20] = {0};
+    a[3] = in.s_addr >> 24;
+    a[2] = (in.s_addr & 0x00ff0000) >> 16;
+    a[1] = (in.s_addr & 0x0000ff00) >> 8;
+    a[0] = in.s_addr & 0x000000ff;
+    sprintf(ip, "%d.%d.%d.%d", a[0], a[1], a[2], a[3]);
+    return ip;
+}
+
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927

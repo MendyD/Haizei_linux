@@ -11,7 +11,6 @@ int main() {
     char *file = "/etc/pihealthd.conf";
     char start[20] = {0};
     get_conf_value(file, "start", start);
-    printf("start = %s\n", start);
     return 0;
 }
 

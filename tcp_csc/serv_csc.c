@@ -5,6 +5,7 @@
 	> Course: 
 	> Created Time: 六  2/23 10:17:36 2019
  ************************************************************************/
+<<<<<<< HEAD
 #include "common.h" 
 
 typedef struct Node{
@@ -67,6 +68,13 @@ int main(int argc, char *argv[]){
     int port, listen_socketfd, sock_fd, pid;
     if(argc != 2){
         printf("Usage: ./serv_show port!\n");
+=======
+#include "common.h"
+int main(int argc, char *argv[]){
+    int port, listen_socketfd ,sock_fd, pid;
+    if(argc != 2){
+        printf("Usage: ./serv_show port1!\n");
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
         exit(1);
     }
     
@@ -77,6 +85,11 @@ int main(int argc, char *argv[]){
         return -1;
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
     while(1){
         struct sockaddr_in client_addr;//存放客户端地址
         char name[20] = {0};
@@ -91,8 +104,11 @@ int main(int argc, char *argv[]){
             continue;
         }
         //0为子进程
+<<<<<<< HEAD
         //父进程里pid 返回子进程pid
         //子进程里返回0
+=======
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
         if(pid == 0) {
             close(listen_socketfd);
             recv(sock_fd, name, 20, 0);
@@ -110,6 +126,10 @@ int main(int argc, char *argv[]){
             printf("\033[1m\033[43;34m下线\033[0m\n");
             close(sock_fd);
             exit(0);
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3850d090465df8b65263946c37f0a24e7b27927
         }
         close(sock_fd);
 

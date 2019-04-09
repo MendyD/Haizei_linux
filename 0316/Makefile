@@ -1,6 +1,6 @@
 CC = gcc
 SHDIR = ./common
-CFLAGS = -Wall -lpthread -lm -I $(SHDIR)
+CFLAGS = -D _DEBUG -Wall -lpthread -lm -I $(SHDIR)
 #CFLAGS = 形式
 
 
